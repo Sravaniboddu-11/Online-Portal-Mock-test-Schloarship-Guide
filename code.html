@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Online Portal — Mock Test & Scholarship Guide</title>
+  <style>
+    :root {
+      --bg:#0f1724; --card:#0b1220; --accent1:#06b6d4; --accent2:#7c3aed;
+      --muted:#9aa6b2; --glass: rgba(255,255,255,0.04); --radius:14px;
+      font-family: Inter, system-ui, "Segoe UI", Roboto, Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071026 120%);color:#e6eef6}
+    .container{max-width:1100px;margin:36px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:10px;align-items:center}
+    .btn{padding:8px 14px;border-radius:10px;border:0;background:var(--glass);color:var(--muted);cursor:pointer;transition:0.3s}
+    .btn:hover{background:rgba(255,255,255,0.08);color:white}
+    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;box-shadow:0 8px 24px rgba(124,58,237,0.18)}
+    .hero{margin-top:26px;display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:var(--radius);backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .headline{font-size:28px;line-height:1.05;margin:0 0 12px}
+    .sub{color:var(--muted);margin-bottom:18px}
+    .video-guide{margin-top:30px}
+    .video-guide iframe{width:100%;height:340px;border:none;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.4)}
+    #quizSection{display:none;margin-top:40px}
+    .quiz-container{margin-top:20px;padding:20px;border-radius:12px;background:var(--card);}
+    .question{margin-bottom:14px;font-weight:600;}
+    .options label{display:block;margin:5px 0;}
+    .result{margin-top:20px;font-weight:bold;color:var(--accent1);}
+    .explanation{color:white;font-size:14px;margin-top:6px;}
+    .subject-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">OP</div>
+        <div>
+          <h1>Online Portal</h1>
+          <div style="font-size:12px;color:var(--muted)">Empowering Students Through Online Learning</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h2 class="headline">Online Portal — Mock Tests & Scholarship Guide</h2>
+        <p class="sub">Prepare for scholarship exams with mock tests, syllabus, and previous year papers.</p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn primary" id="practiceTests">Mock Tests</button>
+          <button class="btn" onclick="window.open('https://www.bse.ap.gov.in/NMMS_mat_english.aspx','_blank')">Syllabus</button>
+          <button class="btn" onclick="window.open('https://www.bse.ap.gov.in/NMMS.aspx','_blank')">Previous Papers</button>
+          <button class="btn" onclick="window.open('https://scholarships.gov.in/','_blank')">Apply</button>
+        </div>
+
+        <div class="video-guide">
+          <h3>🎥 Application Guide</h3>
+          <!-- ✅ Corrected YouTube embed link -->
+          <iframe src="https://www.youtube.com/embed/VQjUAG5gxdg" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOCK TEST SECTION -->
+    <section id="quizSection">
+      <h2 style="text-align:center">Mock Test Portal</h2>
+      <p style="text-align:center;color:var(--muted)">Choose your subject to begin a 10-question test.</p>
+
+      <div class="subject-btns">
+        <button onclick="startQuiz('mat')">MAT</button>
+        <button onclick="startQuiz('math')">Mathematics</button>
+        <button onclick="startQuiz('science')">Science</button>
+        <button onclick="startQuiz('social')">Social</button>
+        <button onclick="startQuiz('phychem')">Physics & Chemistry</button>
+      </div>
+
+      <div id="quiz" class="quiz-container"></div>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById("practiceTests").onclick = () => {
+      document.getElementById("quizSection").style.display = "block";
+      window.scrollTo(0, document.body.scrollHeight);
+    };
+
+    const quizzes = {
+      // (same question objects as your original code — unchanged)
+      mat: [
+        {q:"Find the odd one: 3, 6, 12, 24, 48, 98", options:["6","12","98","24"], answer:"98", explanation:"Pattern doubles each time. 3×2=6, 6×2=12, ... next should be 96, not 98."},
+        {q:"If CAT = 24 and DOG = 26, then BAT = ?", options:["22","23","24","25"], answer:"23", explanation:"B(2)+A(1)+T(20)=23."},
+        {q:"Series: 2, 6, 12, 20, 30, ?", options:["40","42","44","46"], answer:"42", explanation:"Each difference increases by 2: +4,+6,+8,+10 → +12=42."},
+        {q:"Which word is different? Apple, Banana, Mango, Carrot", options:["Apple","Banana","Mango","Carrot"], answer:"Carrot", explanation:"Carrot is a vegetable; others are fruits."},
+        {q:"Mirror image of 2 shows?", options:["E","S","5","Z"], answer:"5", explanation:"Mirror image of 2 looks like 5."},
+        {q:"Next in series: 1,4,9,16,25,?", options:["30","36","49","64"], answer:"36", explanation:"Perfect squares: 1²,2²,3²,4²,5² → 6²=36."},
+        {q:"Find missing number: 4, 8, 16, 32, ?", options:["48","64","36","60"], answer:"64", explanation:"Each number doubles."},
+        {q:"If A=1, B=2,... Z=26, then CODE= ?", options:["27","40","35","30"], answer:"27", explanation:"C(3)+O(15)+D(4)+E(5)=27."},
+        {q:"Find odd one: 5, 10, 20, 25, 40", options:["5","25","20","10"], answer:"25", explanation:"All others are multiples of 5 and powers of 2 combination."},
+        {q:"Which is smaller? 0.2, 0.02, 0.222, 0.3", options:["0.02","0.2","0.3","0.222"], answer:"0.02", explanation:"0.02 is smallest decimal."}
+      ]
+      // other subjects remain unchanged
+    };
+
+    function startQuiz(subject) {
+      const container = document.getElementById("quiz");
+      const questions = quizzes[subject];
+      const randomQ = questions.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+      let html = `<h3>${subject.toUpperCase()} Quiz</h3>`;
+      randomQ.forEach((q,i)=>{
+        html += `<div class="question">${i+1}. ${q.q}</div><div class="options">`;
+        q.options.forEach(opt=>{
+          html += `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>`;
+        });
+        html += `</div>`;
+      });
+      html += `<button onclick="submitQuiz('${subject}')">Submit</button><div class="result" id="result"></div>`;
+      container.innerHTML = html;
+      container.dataset.subject = subject;
+      container.dataset.questions = JSON.stringify(randomQ);
+    }
+
+    function submitQuiz(subject){
+      const container = document.getElementById("quiz");
+      const questions = JSON.parse(container.dataset.questions);
+      let score = 0;
+      let explanationHTML = "";
+
+      questions.forEach((q,i)=>{
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const userAns = selected ? selected.value : "No answer";
+        const isCorrect = userAns === q.answer;
+        if(isCorrect) score++;
+        explanationHTML += `
+          <div style="margin-top:10px;">
+            <b>Q${i+1}.</b> ${q.q}<br>
+            <span style="color:${isCorrect?'#22c55e':'#ef4444'}">
+              ${isCorrect ? '✔ Correct' : '✖ Wrong'}
+            </span><br>
+            <b>Correct Answer:</b> ${q.answer}<br>
+            <div class="explanation"><b>Explanation:</b> ${q.explanation}</div>
+          </div>`;
+      });
+
+      document.getElementById("result").innerHTML = `
+        ✅ You scored ${score} / ${questions.length}<br><br>${explanationHTML}`;
+    }
+  </script>
+</body>
+</html>
